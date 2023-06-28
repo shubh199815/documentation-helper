@@ -1,5 +1,5 @@
 import os
-from langchain.document_loaders import ReadTheDocsLoader
+from langchain.document_loaders import ReadTheDocsLoader   # ReadTheDocs: Useful tool for building documentation for github repositories
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Pinecone
@@ -12,7 +12,7 @@ pinecone.init(
 
 
 def ingest_docs() -> None:
-    loader = ReadTheDocsLoader(path="langchain-docs/langchain.readthedocs.io/en/latest")
+    loader = ReadTheDocsLoader(path="langchain-docs\\api.python.langchain.com\en\latest", encoding="utf-8")
     raw_documents = loader.load()
     print(f"loaded {len(raw_documents) }documents")
     text_splitter = RecursiveCharacterTextSplitter(
