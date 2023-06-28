@@ -1,5 +1,7 @@
 import os
-from langchain.document_loaders import ReadTheDocsLoader   # ReadTheDocs: Useful tool for building documentation for github repositories
+from langchain.document_loaders import (
+    ReadTheDocsLoader,
+)  # ReadTheDocs: Useful tool for building documentation for github repositories
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Pinecone
@@ -14,7 +16,9 @@ pinecone.init(
 
 
 def ingest_docs() -> None:
-    loader = ReadTheDocsLoader(path="langchain-docs\\api.python.langchain.com\en\latest", encoding="utf-8")
+    loader = ReadTheDocsLoader(
+        path="langchain-docs\\api.python.langchain.com\en\latest", encoding="utf-8"
+    )
     raw_documents = loader.load()
     print(f"loaded {len(raw_documents) }documents")
     text_splitter = RecursiveCharacterTextSplitter(
@@ -30,9 +34,7 @@ def ingest_docs() -> None:
 
     print(f"Going to insert {len(documents)} to Pinecone")
     embeddings = OpenAIEmbeddings()
-    Pinecone.from_documents(
-        documents[3969:], embeddings, index_name=INDEX_NAME
-    )
+    Pinecone.from_documents(documents[3969:], embeddings, index_name=INDEX_NAME)
     print("****** Added to Pinecone vectorstore vectors")
 
 
